@@ -34,9 +34,11 @@ namespace TimeReport.API.Services
 
         public async Task<TimeRep> GetHoursByWeekAsync(int employee, int week)
         {
-            IQueryable<TimeRep> rep = _timeReportDbContext.TimeReports;
-            rep = rep.Where(t=>t.EmployeeId == employee && t.WeekNumber == week);
-            return await rep.FirstOrDefaultAsync();
+            //IQueryable<TimeRep> rep = _timeReportDbContext.TimeReports;
+            //rep = rep.Where(t => t.EmployeeId == employee && t.WeekNumber == week);
+            //return await rep.FirstOrDefaultAsync();            
+            return await _timeReportDbContext.TimeReports.Where
+                (t => t.EmployeeId == employee && t.WeekNumber == week).FirstOrDefaultAsync();
         }
 
         public async Task<TimeRep> GetSingleAsync(int id) => 

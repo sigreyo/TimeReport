@@ -11,7 +11,7 @@ namespace TimeReport.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartedAt { get; set; }
-        public DateTime EndedAt { get; set; }
+        public DateTime? EndedAt { get; set; }
         public string? Description { get; set; }
         public string? Customer { get; set; }
         public ICollection<Employee> Employees { get; set; }

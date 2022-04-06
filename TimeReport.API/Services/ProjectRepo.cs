@@ -1,5 +1,7 @@
 ﻿using TimeReport.API.Models;
 using TimeReport.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace TimeReport.API.Services
 {
@@ -9,39 +11,65 @@ namespace TimeReport.API.Services
 
         public ProjectRepo(TimeReportDbContext timeReportDbContext) => _timeReportDbContext = timeReportDbContext;
 
-        public Task<Project> AddAsync(Project entity)
+        public async Task<Project> AddAsync(Project entity)
         {
-            throw new NotImplementedException();
+            var added = await _timeReportDbContext.Projects.AddAsync(entity);
+            await _timeReportDbContext.SaveChangesAsync();
+            return added.Entity;
         }
 
-        public Task<Project> DeleteAsync(int id)
+        public async Task<Project> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var del = await _timeReportDbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
+            if (del != null)
+            {
+                _timeReportDbContext.Projects.Remove(del);
+                await _timeReportDbContext.SaveChangesAsync();
+                return del;
+            }
+            return null;
         }
 
-        public Task<IEnumerable<Project>> GetAllAsync()
+        public async Task<IEnumerable<Project>> GetAllAsync() => 
+            await _timeReportDbContext.Projects.ToListAsync();
+       
+
+        public async Task<IEnumerable<Project>> GetEmployeesByProjectAsync(string projectName)
         {
-            throw new NotImplementedException();
+            return await _timeReportDbContext.Projects.Include(e => e.Employees).Where
+                (p => p.Name == projectName).ToListAsync();
+                
         }
 
-        public Task<IEnumerable<Project>> GetEmployeesByProjectAsync(string projectName)
+        public async Task<Project> GetSingleAsync(int id) => 
+            await _timeReportDbContext.Projects.FirstOrDefaultAsync(p=>p.Id == id);
+        
+
+        public async Task<IEnumerable<Project>> SearchAsync(string query)
         {
-            throw new NotImplementedException();
+            IQueryable<Project> proj = _timeReportDbContext.Projects;
+            if (!string.IsNullOrEmpty(query))
+            {
+                proj = proj.Where(p => p.Name.Contains(query));
+            }
+            return await proj.ToListAsync();
         }
 
-        public Task<Project> GetSingleAsync(int id)
+        public async Task<Project> UpdateAsync(Project entity)
         {
-            throw new NotImplementedException();
-        }
+            var upd = await _timeReportDbContext.Projects.FirstOrDefaultAsync(e => e.Id == entity.Id);
+            if (upd != null)
+            {
+                upd.Name = entity.Name;
+                upd.StartedAt = entity.StartedAt;
+                upd.EndedAt = entity.EndedAt;
+                upd.Description = entity.Description;
+                upd.Customer = entity.Customer;
 
-        public Task<IEnumerable<Project>> SearchAsync(string query)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Project> UpdateAsync(Project entity)
-        {
-            throw new NotImplementedException();
+                await _timeReportDbContext.SaveChangesAsync();
+                return upd;
+            }
+            return null;
         }
     }
 }
