@@ -31,7 +31,7 @@ namespace TimeReport.API.Services
         }
 
         public async Task<IEnumerable<Employee>> GetAllAsync() => 
-            await _timeReportDbContext.Employees.ToListAsync();
+            await _timeReportDbContext.Employees.OrderBy(n=>n.LastName).ToListAsync();
 
         public async Task<Employee> GetSingleAsync(int id) => 
             await _timeReportDbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);

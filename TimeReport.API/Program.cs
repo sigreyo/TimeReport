@@ -13,6 +13,9 @@ builder.Services.AddControllers().AddNewtonsoftJson(o=>o.SerializerSettings.Refe
 
 builder.Services.AddDbContext<TimeReportDbContext>(o => o.UseSqlServer("data source=DESKTOP-JP9EE11;database=ProjektTimeReport;trusted_connection=true"));
 builder.Services.AddScoped<IProjectTimeReport<Employee>, EmployeeRepo>();
+builder.Services.AddScoped<IProjectRepo<Project>, ProjectRepo>();
+builder.Services.AddScoped<ITimeRepRepo<TimeRep>, TimeRepRepo>();
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -24,7 +24,9 @@ namespace TimeReport.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error to retrieve data from database.");
             }
+            
         }
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetSingleEmployeeAsync(int id)
