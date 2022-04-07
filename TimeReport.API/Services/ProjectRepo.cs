@@ -30,7 +30,7 @@ namespace TimeReport.API.Services
             return null;
         }
 
-        public async Task<IEnumerable<Project>> GetAllAsync() => 
+        public async Task<IEnumerable<Project>> GetAllAsync(Pager pager) => 
             await _timeReportDbContext.Projects.ToListAsync();
        
 

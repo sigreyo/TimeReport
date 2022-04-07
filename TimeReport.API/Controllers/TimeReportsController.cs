@@ -14,11 +14,11 @@ namespace TimeReport.API.Controllers
         public TimeReportsController(ITimeRepRepo<TimeRep> timeRepRepo) => _timeRepRepo = timeRepRepo;
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTimeReportsAsync()
+        public async Task<IActionResult> GetAllTimeReportsAsync([FromQuery] Pager pager)
         {
             try
             {
-                return Ok(await _timeRepRepo.GetAllAsync());
+                return Ok(await _timeRepRepo.GetAllAsync(pager));
             }
             catch (Exception)
             {

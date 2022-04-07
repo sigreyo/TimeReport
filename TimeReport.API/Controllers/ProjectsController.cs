@@ -16,11 +16,11 @@ namespace TimeReport.API.Controllers
         
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProjectsAsync()
+        public async Task<IActionResult> GetAllProjectsAsync([FromQuery] Pager pager)
         {
             try
             {
-                return Ok(await _projectRepo.GetAllAsync());
+                return Ok(await _projectRepo.GetAllAsync(pager));
             }
             catch (Exception)
             {

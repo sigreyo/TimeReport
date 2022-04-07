@@ -30,25 +30,30 @@ namespace TimeReport.API.Services
             return null;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllAsync() => 
-            await _timeReportDbContext.Employees.OrderBy(n=>n.LastName).ToListAsync();
+        public async Task<IEnumerable<Employee>> GetAllAsync(Pager pager)
+        {
+            return await _timeReportDbContext.Employees.OrderBy(n => n.LastName)
+                .Skip((pager.PageNumber - 1) * pager.PageSize)
+                .Take(pager.PageSize)
+                .ToListAsync();
+        }
 
-        public async Task<Employee> GetSingleAsync(int id) => 
+        public async Task<Employee> GetSingleAsync(int id) =>
             await _timeReportDbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task<IEnumerable<Employee>> SearchAsync(string query)
         {
             IQueryable<Employee> emp = _timeReportDbContext.Employees;
-            if(!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(query))
             {
-                emp = emp.Where(e=>e.FirstName.Contains(query) || e.LastName.Contains(query));
+                emp = emp.Where(e => e.FirstName.Contains(query) || e.LastName.Contains(query));
             }
             return await emp.ToListAsync();
         }
 
         public async Task<Employee> UpdateAsync(Employee entity)
         {
-            var upd = await _timeReportDbContext.Employees.FirstOrDefaultAsync(e=>e.Id == entity.Id);
+            var upd = await _timeReportDbContext.Employees.FirstOrDefaultAsync(e => e.Id == entity.Id);
             if (upd != null)
             {
                 upd.FirstName = entity.FirstName;

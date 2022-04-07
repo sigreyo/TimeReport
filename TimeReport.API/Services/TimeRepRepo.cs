@@ -29,7 +29,7 @@ namespace TimeReport.API.Services
             return null;
         }
 
-        public async Task<IEnumerable<TimeRep>> GetAllAsync() => 
+        public async Task<IEnumerable<TimeRep>> GetAllAsync(Pager pager) => 
             await _timeReportDbContext.TimeReports.ToListAsync();
 
         public async Task<TimeRep> GetHoursByWeekAsync(int employee, int week)
