@@ -30,7 +30,10 @@ namespace TimeReport.API.Services
         }
 
         public async Task<IEnumerable<TimeRep>> GetAllAsync(Pager pager) => 
-            await _timeReportDbContext.TimeReports.ToListAsync();
+            await _timeReportDbContext.TimeReports
+                .Skip((pager.PageNumber - 1) * pager.PageSize)
+                .Take(pager.PageSize)
+                .ToListAsync();
 
         public async Task<TimeRep> GetHoursByWeekAsync(int employee, int week)
         {

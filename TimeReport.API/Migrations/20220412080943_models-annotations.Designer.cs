@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeReport.API.Models;
 
@@ -11,9 +12,10 @@ using TimeReport.API.Models;
 namespace TimeReport.API.Migrations
 {
     [DbContext(typeof(TimeReportDbContext))]
-    partial class TimeReportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220412080943_models-annotations")]
+    partial class modelsannotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -31,8 +31,11 @@ namespace TimeReport.API.Services
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync(Pager pager) => 
-            await _timeReportDbContext.Projects.ToListAsync();
-       
+            await _timeReportDbContext.Projects
+                .Skip((pager.PageNumber - 1) * pager.PageSize)
+                .Take(pager.PageSize)
+                .ToListAsync();
+
 
         public async Task<IEnumerable<Project>> GetEmployeesByProjectAsync(string projectName)
         {
