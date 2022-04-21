@@ -15,3 +15,28 @@ För att optimera applikationen för backend har följande gjorts:<br>
 - Paginering för att inte hämta all data på en gång, och med valbara mängder, dock ett max per sida<br>
 - Alla metoder är asynkrona<br>
 - Alla controllers är felhanterade avseende kontakt med databas
+
+
+<h4>Postman-querys</h4>
+<i>- Vi vill kunna få ut en lista med alla anställda i systemet <br></i>
+&ensp; GET mot /api/employees/[id]<br>
+<i>- Vi vill kunna få ut en lista på alla anställda som jobbar med ett specifikt projekt<br></i>
+&ensp; GET mot /api/Projects/listemp/[project]<br>
+<i>- Vi vill kunna få ut hur många timmar en specifik anställd jobbat en specifik vecka (ex antal timmar vecka 25)<br></i>
+&ensp; GET mot /api/TimeReports/[employeeid]/[week]<br>
+<i>- Vi vill kunna lägga till, uppdatera och ta bort anställda.<br></i>
+&ensp; POST mot <br>
+&ensp; PUT mot <br>
+&ensp; DELETE mot <br>
+<i>- Vi vill kunna lägga till, uppdatera och ta bort projekt<br></i>
+&ensp; POST mot <br>
+&ensp; PUT mot <br>
+&ensp; DELETE mot <br>
+<i>- Vi vill kunna lägga till, uppdatera och ta bort specifika tidsrapporter<br></i>
+&ensp; POST mot <br>
+&ensp; PUT mot <br>
+&ensp; DELETE mot <br>
+<i>- Hämta tidsrapporter per sida<br></i>
+&ensp; GET mot /api/TimeReports?PageNumber=3&PageSize=20<br>
+
+Utöver detta finns sökning för att hitta anställda via namn.
