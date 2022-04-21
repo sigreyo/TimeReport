@@ -22,8 +22,8 @@ namespace TimeReport.Models
         public string? Customer { get; set; }
 
         //relations
-        public ICollection<Employee> Employees { get; set; }
-        public ICollection<TimeRep> TimeReports { get; set; }
+        public ICollection<Employee>? Employees { get; set; }
+        public ICollection<TimeRep>? TimeReports { get; set; }
 
     }
 }
