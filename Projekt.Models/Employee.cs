@@ -19,8 +19,8 @@ namespace TimeReport.Models
 
         //relations
         public int ProjectId { get; set; }
-        public ICollection<TimeRep> TimeReports { get; set; }
-        public Project Project { get; set; }
+        public ICollection<TimeRep>? TimeReports { get; set; }
+        public Project? Project { get; set; }
 
     }
 }

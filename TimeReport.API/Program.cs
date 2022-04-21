@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddNewtonsoftJson(o=>o.SerializerSettings.ReferenceLoopHandling
 = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+builder.Services.AddControllers(o => o.SuppressAsyncSuffixInActionNames = false);
+
 builder.Services.AddDbContext<TimeReportDbContext>(o => o.UseSqlServer("data source=DESKTOP-JP9EE11;database=ProjektTimeReport;trusted_connection=true"));
 builder.Services.AddScoped<IProjectTimeReport<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IProjectRepo<Project>, ProjectRepo>();

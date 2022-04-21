@@ -29,7 +29,7 @@ namespace TimeReport.API.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetSingleEmployeeAsync(int id)
+        public async Task<ActionResult<Employee>> GetSingleEmployeeAsync(int id)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace TimeReport.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEmployeeAsync(Employee newEmp)
+        public async Task<ActionResult<Employee>> AddEmployeeAsync(Employee newEmp)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace TimeReport.API.Controllers
                     return BadRequest();
                 }
                 var create = await _projectTimeReport.AddAsync(newEmp);
-                return CreatedAtAction(nameof(GetSingleEmployeeAsync), new { create.Id }, create);
+                return CreatedAtAction(nameof(GetSingleEmployeeAsync), new { create.Id}, create);
             }
             catch (Exception)
             {
